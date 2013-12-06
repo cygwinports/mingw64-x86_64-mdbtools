@@ -1,0 +1,35 @@
+--- origsrc/mdbtools/doc/Makefile.am	2005-01-14 23:02:11.000000000 -0600
++++ src/mdbtools/doc/Makefile.am	2010-06-09 04:28:40.852443000 -0500
+@@ -34,18 +34,18 @@ install.tgz: $(srcdir)/install.sgml
+ man:	mdb-tables.1 mdb-ver.1 mdb-export.1 mdb-sql.1
+ 
+ mdb-tables.1: mdb-tables.txt
+-	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $(srcdir)/$< > $@
++	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $< > $@
+ 	
+ mdb-ver.1: mdb-ver.txt
+-	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $(srcdir)/$< > $@
++	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $< > $@
+ 
+ mdb-export.1: mdb-export.txt
+-	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $(srcdir)/$< > $@
++	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $< > $@
+ 
+ mdb-schema.1: mdb-schema.txt
+-	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $(srcdir)/$< > $@
++	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $< > $@
+ 
+ mdb-sql.1: mdb-sql.txt
+-	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $(srcdir)/$< > $@
++	- $(TXT2MAN) -P $(PRODUCT) -t $(PRODUCT) -r $(RELEASE) $< > $@
+ 
+ 
+--- origsrc/mdbtools/src/gmdb2/help/C/Makefile.am	2005-01-14 23:02:14.000000000 -0600
++++ src/mdbtools/src/gmdb2/help/C/Makefile.am	2010-06-09 04:40:51.310222800 -0500
+@@ -5,5 +5,5 @@ docname = gmdb
+ lang = C
+ omffile = gmdb-C.omf
+ entities = legal.xml
+-include xmldocs.make
++include $(top_srcdir)/xmldocs.make
+ dist-hook: app-dist-hook

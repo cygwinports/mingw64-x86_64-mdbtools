@@ -1,0 +1,37 @@
+--- origsrc/mdbtools/src/libmdb/Makefile.am	2005-03-19 06:37:11.000000000 -0600
++++ src/mdbtools/src/libmdb/Makefile.am	2010-06-09 04:15:08.912002700 -0500
+@@ -1,5 +1,5 @@
+ lib_LTLIBRARIES	=	libmdb.la
+ libmdb_la_SOURCES=	catalog.c mem.c file.c kkd.c table.c data.c dump.c backend.c money.c sargs.c index.c like.c write.c stats.c map.c props.c worktable.c options.c iconv.c
+-libmdb_la_LDFLAGS = -version-info  1:0:0
++libmdb_la_LDFLAGS = -version-info  1:0:0 -no-undefined
+ AM_CPPFLAGS	=	-I$(top_srcdir)/include $(GLIB_CFLAGS)
+-LIBS = $(GLIB_LIBS) @LIBS@
++LIBS = $(GLIB_LIBS) $(LIBICONV) @LIBS@
+--- origsrc/mdbtools/src/odbc/Makefile.am	2010-06-09 04:14:21.936315800 -0500
++++ src/mdbtools/src/odbc/Makefile.am	2010-06-09 04:33:08.093728300 -0500
+@@ -11,12 +11,13 @@ noinst_PROGRAMS	=	unittest
+ lib_LTLIBRARIES	=	libmdbodbc.la
+ AM_CPPFLAGS	=	-I$(top_srcdir)/include $(GLIB_CFLAGS) $(ODBC_CFLAGS)
+ libmdbodbc_la_SOURCES=	odbc.c connectparams.c
++libmdbodbc_la_LDFLAGS=	-module -avoid-version -no-undefined
+ libmdbodbc_la_LIBADD=	$(patsubst %, $(SQLDIR)/%, \
+ 				$(patsubst %.c, %.lo, $(SQLSOURCES))) \
+ 				$(patsubst %, $(MDBDIR)/%, \
+ 				$(patsubst %.c, %.lo, $(MDBSOURCES))) \
+ 				../libmdb/libmdb.la
+-LIBS	=	@LEXLIB@ $(GLIB_LIBS) $(ODBC_LIBS)
++LIBS	=	$(GLIB_LIBS) $(ODBC_LIBS)
+ unittest_LDADD	=	libmdbodbc.la ../libmdb/libmdb.la ../sql/libmdbsql.la
+ 
+ ## Need blank statement to avoid compiling odbc.c
+--- origsrc/mdbtools/src/sql/Makefile.am	2010-06-09 04:14:21.941316100 -0500
++++ src/mdbtools/src/sql/Makefile.am	2010-06-09 04:15:31.841314100 -0500
+@@ -1,6 +1,6 @@
+ lib_LTLIBRARIES	=	libmdbsql.la
+ libmdbsql_la_SOURCES=	mdbsql.c parser.y lexer.l 
+-libmdbsql_la_LDFLAGS = -version-info 1:0:0
++libmdbsql_la_LDFLAGS = -version-info 1:0:0 -no-undefined
+ DISTCLEANFILES = parser.c parser.h lexer.c
+ AM_CPPFLAGS	=	-I$(top_srcdir)/include $(GLIB_CFLAGS)
+ LIBS	=	$(GLIB_LIBS)
